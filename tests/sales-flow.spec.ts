@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { HomePage } from "../pages/HomePage";
+import testData from "../data/testData.json"
 
 test.describe("Sales Flow Tests", () => {
   let homePage: HomePage;
@@ -8,12 +9,12 @@ test.describe("Sales Flow Tests", () => {
     homePage = new HomePage(page);
 
     await homePage.goTo();
-    await page.locator('[data-label="Accepteren"]').click();
   });
 
   test('check user can enter address successfully', async () => {
-    await homePage.postalCode.fill('9713RD');
-    await homePage.houseNumber.fill('63');
-    await homePage.houseNumberSuffixList.selectOption('A');
+    await homePage.postalCode.fill(testData.postalCode);
+    await homePage.houseNumber.fill(testData.houseNumber);
+    await homePage.houseNumberSuffixList.selectOption(testData.houseNumberSuffixList);
+    await homePage.checkAddressIsVisible(testData.address);
   });
 });

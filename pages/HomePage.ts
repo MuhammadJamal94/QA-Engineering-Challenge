@@ -1,6 +1,7 @@
-import { Locator, Page } from "@playwright/test"
+import { Locator, Page, expect } from "@playwright/test"
+import { BasePage } from "./BasePage";
 
-export class HomePage {
+export class HomePage extends BasePage {
     readonly page: Page;
     readonly postalCode: Locator;
     readonly houseNumber: Locator;
@@ -8,6 +9,7 @@ export class HomePage {
     readonly calculateButton: Locator
 
     constructor(page: Page) {
+        super(page);
         this.page = page;
         this.postalCode = page.locator('[name = "postalCode"]');
         this.houseNumber = page.locator('[name="houseNumber"]');
@@ -17,5 +19,10 @@ export class HomePage {
 
     async goTo() {
         await this.page.goto('https://www.eneco.nl/');
+        await this.acceptCookies();
+    }
+
+    async checkAddressIsVisible(address: string) {
+        await expect(this.page.getByText(address)).toBeVisible();
     }
 }

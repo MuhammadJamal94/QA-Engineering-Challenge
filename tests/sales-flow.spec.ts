@@ -3,21 +3,27 @@ import { HomePage } from "../pages/HomePage";
 import { CalculatePage } from "../pages/CalculatePage";
 import testData from "../data/testData.json";
 import { OfferPage } from "../pages/OfferPage";
+import { FactsPage } from "../pages/FactsPage";
+import { ControlPage } from "../pages/ControlPage";
 
 test.describe("Sales Flow Tests", () => {
   let homePage: HomePage;
   let calculatePage: CalculatePage;
   let offerPage: OfferPage;
+  let factsPage: FactsPage;
+  let controlPage: ControlPage;
 
   test.beforeEach(async ({ page }) => {
     homePage = new HomePage(page);
     calculatePage = new CalculatePage(page);
     offerPage = new OfferPage(page);
+    factsPage = new FactsPage(page);
+    controlPage = new ControlPage(page);
 
     await homePage.goTo();
   });
 
-  test("check user can enter address successfully", async () => {
+  test("check user can enter address successfully", async ( {page} ) => {
     await homePage.postalCode.fill(testData.postalCode);
     await homePage.houseNumber.fill(testData.houseNumber);
     await homePage.houseNumberSuffixList.selectOption(
@@ -53,6 +59,24 @@ test.describe("Sales Flow Tests", () => {
     await offerPage.toYourOfferButton.click();
 
     await offerPage.toYourDataButton.click();
+
+    // facts page
+    // await factsPage.selectDateFromPicker('12-12-2024'); To be fixed
+    await factsPage.nextButton.click();
+
+    await factsPage.isLivingInAddress(true);
+
+    await factsPage.nextButton.click();
+
+    await factsPage.fillPersonalInformation(testData.validUser);
+    await factsPage.nextButton.click();
+
+    await factsPage.phoneNumber.fill(testData.validUser.phoneNumber);
+    await factsPage.email.fill(testData.validUser.email);
+    await factsPage.checkYourOrderButton.click();
+
+    // control page
+    await controlPage.getPersonalInfo();
 
   });
 });

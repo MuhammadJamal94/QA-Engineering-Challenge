@@ -2,5 +2,20 @@
   "postalCode": "9713RD",
   "houseNumber": "63",
   "houseNumberSuffixList": "A",
-  "address": "Irislaan 63A, 9713RD GRONINGEN"
+  "address": "Irislaan 63A, 9713RD GRONINGEN",
+
+  "validUser": {
+    "salutation": "Dhr.",
+    "firstName": "Bruce",
+    "lastName": "Wane",
+    "initials": "BW",
+    "surnamePrep": "de",
+    "birth": {
+      "day": "18",
+      "month": "8",
+      "year": "1988"
+    },
+    "email": "Bruce@Wane.com",
+    "phoneNumber": "0627465463"
+  }
 }

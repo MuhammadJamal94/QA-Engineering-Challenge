@@ -19,7 +19,6 @@ export class FactsPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.deliveryDate = page.locator(".c-WSKDH"); // To be fixed
     this.dhrRadioBtn = page.locator('[data-label = "Dhr."]');
     this.mevrRadioBtn = page.locator('[data-label = "Mevr."]');
     this.firstName = page.locator('[name = "firstName"]');
@@ -35,9 +34,6 @@ export class FactsPage {
     this.checkYourOrderButton = page.locator('[data-label = "Controleer je bestelling"]');
   }
 
-  //   async selectDateDynamically(date: string) {
-  //     await this.deliveryDate.fill(date);
-  //   }
   async selectDateFromPicker(date: string): Promise<void> {
     // Click the date input field to open the date picker
     await this.page.click('input[name="deliveryDate"]');
@@ -69,12 +65,6 @@ export class FactsPage {
     await this.birthMonth.fill(userInfo.birth.month);
     await this.birthYear.fill(userInfo.birth.year);
   }
-
-//   async isLivingInAddress(answere: boolean) {
-//     if (answere) {
-//       await this.page.getByLabel("Ja").click();
-//     } else await this.page.getByLabel("Nee").click();
-//   }
 
 async isLivingInAddress(answer: boolean): Promise<void> {
     try {

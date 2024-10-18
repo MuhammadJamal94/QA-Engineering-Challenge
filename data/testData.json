@@ -17,5 +17,17 @@
     },
     "email": "Bruce@Wane.com",
     "phoneNumber": "0627465463"
+  },
+
+  "powerOption": {
+    "gasAndElectricity": "Stroom & gas",
+    "gas": "Alleen gas",
+    "electricity": "Alleen stroom"
+  },
+
+  "powerConsumption": {
+    "annualElectricity": "1500",
+    "offPeakElectricity": "500",
+    "gas": "222"
   }
 }

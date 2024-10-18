@@ -43,15 +43,4 @@ export class OfferPage {
       throw new Error("No offers available to select.");
     }
   }
-
-  // async selectRandomOffer() {
-  //     const offers = await this.cardsOptions.count();
-
-  //     if (offers > 0) {
-  //         const randomIndex = Math.floor(Math.random() * offers);  // Generate a random index between 0 and offers-1
-  //         await this.cardsOptions.nth(randomIndex).click();  // Click the offer at the random index
-  //     } else {
-  //         throw new Error('No offers available to select.');
-  //     }
-  // }
 }

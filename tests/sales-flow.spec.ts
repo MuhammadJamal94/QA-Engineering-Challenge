@@ -46,6 +46,13 @@ test.describe("Sales Flow Tests", () => {
 
     // offer page
     await offerPage.fixedOption.check();
-    await offerPage.selectRandomOffer();
+    await offerPage.selectRandomOfferAndGetPrice();
+    await offerPage.nextButton.click();
+
+    await expect(offerPage.co2EmissionsToggle).not.toBeChecked();
+    await offerPage.toYourOfferButton.click();
+
+    await offerPage.toYourDataButton.click();
+
   });
 });

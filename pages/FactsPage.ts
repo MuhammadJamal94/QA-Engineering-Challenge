@@ -49,8 +49,6 @@ export class FactsPage {
     const [day, month, year] = date.split("-");
 
     // Select the year from the dropdown
-    console.log(day, month, year);
-    // await this.page.locator('select[name="years"]').waitFor();
     await this.page.locator('select[name="years"]').selectOption(year);
 
     // Click the day button in the calendar

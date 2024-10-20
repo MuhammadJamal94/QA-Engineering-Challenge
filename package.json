@@ -4,8 +4,10 @@
   "description": "## Introduction This repository contains:",
   "main": "index.js",
   "scripts": {
-    "test-ui": "npx playwright test sales-flow.spec.ts",
-    "test-api": "npx playwright test go-rest.spec.ts --project chromium"
+    "test-ui": "npx playwright test sales-flow.spec.ts --project chromium",
+    "test-ui-mobile": "npx playwright test sales-flow.spec.ts --project Mobile-Safari",
+    "test-api": "npx playwright test go-rest.spec.ts --project chromium",
+    "test-ui-api": "npx playwright test sales-flow.spec.ts go-rest.spec.ts --project chromium"
   },
   "keywords": [],
   "author": "Mohamad Hasanien",

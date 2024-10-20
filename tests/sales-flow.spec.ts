@@ -114,6 +114,7 @@ test.describe("Sales Flow Tests", () => {
 
     await test.step("check user information in control page", async () => {
       // control page
+      test.slow();
       const personalInfo = await controlPage.getPersonalInfo();
 
       expect(personalInfo.name).toContain(

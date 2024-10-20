@@ -2,12 +2,11 @@ import { test, expect } from "@playwright/test";
 import goRestData from "../data/goRestData.json";
 import { createUser, deleteUser } from "../utils/goRestUtils";
 
-const { BASE_URL, TOKEN, newUser, updatedUser } = goRestData;
+const { BASE_URL, TOKEN, newUser, updatedUser, nonExistentUserId } = goRestData;
 let userId: number | undefined;
 let uniqueEmail: string;
 
 test.describe("GoRest API Tests", () => {
-
   test.beforeEach(async ({ request }) => {
     const user = await createUser(request, BASE_URL, TOKEN, newUser);
     userId = user.userId;
@@ -69,7 +68,9 @@ test.describe("GoRest API Tests", () => {
     expect(updatedUserResponse).toMatchObject(updatedUser);
   });
 
-  test("DELETE /users/:id - should delete a user by ID", async ({ request }) => {
+  test("DELETE /users/:id - should delete a user by ID", async ({
+    request,
+  }) => {
     const response = await request.delete(`${BASE_URL}/users/${userId}`, {
       headers: {
         Authorization: `Bearer ${TOKEN}`,
@@ -109,5 +110,50 @@ test.describe("GoRest API Tests", () => {
     expect(updatedUserResponse).toMatchObject(updatedUser);
 
     // User deletion is handled by afterEach
+  });
+
+  test("GET /users/:id - should return 404 for non-existent user", async ({ request }) => {
+    const response = await request.get(`${BASE_URL}/users/${nonExistentUserId}`, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+      },
+    });
+
+    expect(response.status()).toBe(404);
+  });
+
+  test("POST /users - should return 422 for invalid user data", async ({ request }) => {
+    const invalidUser = { ...newUser, email: "invalid-email" };
+    const response = await request.post(`${BASE_URL}/users`, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      data: invalidUser,
+    });
+
+    expect(response.status()).toBe(422);
+  });
+
+  test("PUT /users/:id - should return 404 for updating non-existent user", async ({ request }) => {
+    const response = await request.put(`${BASE_URL}/users/${nonExistentUserId}`, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      data: updatedUser,
+    });
+
+    expect(response.status()).toBe(404);
+  });
+
+  test("DELETE /users/:id - should return 404 for deleting non-existent user", async ({ request }) => {
+    const response = await request.delete(`${BASE_URL}/users/${nonExistentUserId}`, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+      },
+    });
+
+    expect(response.status()).toBe(404);
   });
 });

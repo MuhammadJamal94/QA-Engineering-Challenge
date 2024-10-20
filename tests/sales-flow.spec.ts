@@ -24,6 +24,7 @@ test.describe("Sales Flow Tests", () => {
   });
 
   test("check user can complete sales flow successfully", async () => {
+    test.slow();
     await test.step("check user can enter address data successfully", async () => {
       await homePage.postalCode.fill(testData.postalCode);
       await homePage.houseNumber.fill(testData.houseNumber);

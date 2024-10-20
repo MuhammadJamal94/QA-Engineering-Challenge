@@ -126,4 +126,38 @@ test.describe("Sales Flow Tests", () => {
       expect(personalInfo.email).toContain(testData.validUser.email);
     });
   });
+
+  test("check user cannot proceed with invalid postal code", async () => {
+    await homePage.postalCode.fill(testData.invalidPostalCode);
+    await homePage.houseNumber.fill(testData.houseNumber);
+    await homePage.calculateButton.click();
+    await expect(homePage.errorMessage).toBeVisible();
+    await expect(homePage.errorMessage).toHaveText('Verplicht veld.');  
+  });
+
+  test("check user cannot proceed with missing house number", async () => {
+    await homePage.postalCode.fill(testData.postalCode);
+    await homePage.calculateButton.click();
+    await expect(homePage.errorMessage).toBeVisible();
+    await expect(homePage.errorMessage).toHaveText('Verplicht veld.');
+  });
+
+  test("check user cannot proceed with invalid consumption data", async () => {
+    await homePage.postalCode.fill(testData.postalCode);
+    await homePage.houseNumber.fill(testData.houseNumber);
+    await homePage.houseNumberSuffixList.selectOption(
+      testData.houseNumberSuffixList
+    );
+    await homePage.calculateButton.click();
+
+    await calculatePage.selectPowerOption(testData.powerOption.gasAndElectricity);
+    await calculatePage.nextButton.click();
+    await calculatePage.enterDataMyslefOption.click();
+    await calculatePage.nextButton.click();
+
+    await calculatePage.annualElectricityConsumption.fill(testData.invalidPowerConsumption.annualElectricity);
+    await calculatePage.nextButton.click();
+    await expect(calculatePage.errorMessage).toBeVisible();
+    await expect(calculatePage.errorMessage).toContainText('Geef een geldig stroomverbruik op tussen de 1 en 10.000 kWh.');
+  });
 });

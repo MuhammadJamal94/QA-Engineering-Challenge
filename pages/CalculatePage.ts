@@ -15,6 +15,7 @@ export class CalculatePage {
   readonly noSolarPanels: Locator;
   readonly isMovingOption: Locator;
   readonly notMovingOption: Locator;
+  readonly errorMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -37,6 +38,7 @@ export class CalculatePage {
     this.isMovingOption = page.getByLabel('Ja, ik ga verhuizen');
     this.notMovingOption = page.getByLabel('Nee, ik ga niet verhuizen');
     this.nextButton = page.getByRole("button", { name: "Volgende" });
+    this.errorMessage = page.getByText('Geef een geldig').first();
   }
 
   // Method to select a radio button based on the option provided

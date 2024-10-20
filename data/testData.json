@@ -1,5 +1,6 @@
 {
   "postalCode": "9713RD",
+  "invalidPostalCode": "00000",
   "houseNumber": "63",
   "houseNumberSuffixList": "A",
   "address": "Irislaan 63A, 9713RD GRONINGEN",
@@ -29,5 +30,11 @@
     "annualElectricity": "1500",
     "offPeakElectricity": "500",
     "gas": "222"
+  },
+
+  "invalidPowerConsumption": {
+    "annualElectricity": "0",
+    "offPeakElectricity": "0",
+    "gas": "0"
   }
 }

@@ -84,10 +84,6 @@ test.describe("Sales Flow Tests", () => {
     });
 
     await test.step("check user can continue to facts page", async () => {
-      //   const totalValueRelative = page
-      //     .locator('div:has-text("Total") + div')
-      //     .textContent();
-      //   console.log(totalValueRelative);
       await offerPage.toYourDataButton.click();
     });
 

@@ -31,14 +31,14 @@ export class OfferPage {
       // Click the randomly selected offer
       await selectedOffer.click();
 
-      // Locate the price element based on its structure or surrounding elements (span within a specific parent)
+      // Locate the price element
       const priceText = await selectedOffer
         .locator("span.sparky-text")
         .nth(1)
-        .textContent(); // Adjust as needed
+        .textContent();
 
       console.log(`Selected Offer Index: ${randomIndex}, Price: ${priceText}`);
-      return priceText; // Optionally return the price
+      return priceText;
     } else {
       throw new Error("No offers available to select.");
     }

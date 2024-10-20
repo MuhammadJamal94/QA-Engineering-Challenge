@@ -1,0 +1,14 @@
+{
+  "BASE_URL": "https://gorest.co.in/public/v2",
+  "TOKEN": "e3c5cae71865427761c596cd92da762acaafac7b768a633f7cfe1234e821998d",
+  "newUser": {
+    "name": "John Doe",
+    "gender": "male",
+    "status": "active"
+  },
+  "updatedUser": {
+    "name": "Jane Doe",
+    "gender": "female",
+    "status": "inactive"
+  }
+}

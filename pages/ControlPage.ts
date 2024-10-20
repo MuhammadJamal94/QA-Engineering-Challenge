@@ -8,7 +8,7 @@ export class ControlPage {
   }
 
   async getPersonalInfo() {
-    await this.page.waitForLoadState("networkidle");
+    await this.page.waitForSelector('div:has(h3:has-text("Je gegevens"))');
 
     // Selects the parent div containing "Je gegevens"
     const personalInfoContainerSelector = 'div:has(h3:has-text("Je gegevens"))';

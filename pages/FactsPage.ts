@@ -16,6 +16,7 @@ export class FactsPage {
   readonly phoneNumber: Locator;
   readonly email: Locator;
   readonly checkYourOrderButton: Locator;
+  readonly selectedDate: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -31,17 +32,33 @@ export class FactsPage {
     this.phoneNumber = page.locator('[name = "phoneNumber"]');
     this.email = page.locator('[name = "emailAddress"]');
     this.nextButton = page.locator('[data-label = "Volgende"]');
-    this.checkYourOrderButton = page.locator('[data-label = "Controleer je bestelling"]');
+    this.checkYourOrderButton = page.locator(
+      '[data-label = "Controleer je bestelling"]'
+    );
+    this.selectedDate = page.locator('[name = "deliveryDate"]');
   }
 
   async selectDateFromPicker(date: string): Promise<void> {
     // Click the date input field to open the date picker
     await this.page.click('input[name="deliveryDate"]');
 
-    // Assume you can pick the day from a date picker after that
-    // If the picker opens a calendar, you can interact with it:
-    // This is just a generic example, you will need to adjust the locator according to your DOM
-    await this.page.click(`text=${date}`);
+    // Wait for the date picker dialog to appear
+    await this.page.waitForSelector('div[role="dialog"]');
+
+    // Split the date into day, month, and year
+    const [day, month, year] = date.split("-");
+
+    // Select the year from the dropdown
+    console.log(day, month, year);
+    // await this.page.locator('select[name="years"]').waitFor();
+    await this.page.locator('select[name="years"]').selectOption(year);
+
+    // Click the day button in the calendar
+    await this.page.click(
+      `button[aria-label="${parseInt(day)} ${new Intl.DateTimeFormat("nl-NL", {
+        month: "long",
+      }).format(new Date(`${year}-${month}-01`))} ${year}"]`
+    );
   }
 
   async fillPersonalInformation(userInfo: {
@@ -66,11 +83,11 @@ export class FactsPage {
     await this.birthYear.fill(userInfo.birth.year);
   }
 
-async isLivingInAddress(answer: boolean): Promise<void> {
+  async isLivingInAddress(answer: boolean): Promise<void> {
     try {
       const label = answer ? "Ja" : "Nee";
       const option = this.page.getByLabel(label);
-      
+
       if (option) {
         await option.click();
       } else {
@@ -80,5 +97,16 @@ async isLivingInAddress(answer: boolean): Promise<void> {
       console.error("Failed to select an option:", error);
       throw error;
     }
+  }
+
+  async getNextMonthDate(): Promise<string> {
+    const today = new Date();
+    const nextMonth = new Date(today.setMonth(today.getMonth() + 1));
+
+    const day = nextMonth.getDate().toString().padStart(2, "0");
+    const month = (nextMonth.getMonth() + 1).toString().padStart(2, "0");
+    const year = nextMonth.getFullYear().toString();
+
+    return `${day}-${month}-${year}`;
   }
 }

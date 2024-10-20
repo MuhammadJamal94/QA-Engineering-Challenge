@@ -89,7 +89,9 @@ test.describe("Sales Flow Tests", () => {
 
     await test.step("check user can select date", async () => {
       // facts page
-      // await factsPage.selectDateFromPicker('12-12-2024'); To be fixed
+      const nextMonthDate = await factsPage.getNextMonthDate();
+      await factsPage.selectDateFromPicker(nextMonthDate);
+      await expect(factsPage.selectedDate).toHaveValue(nextMonthDate);
       await factsPage.nextButton.click();
     });
 

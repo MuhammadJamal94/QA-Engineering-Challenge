@@ -1,4 +1,4 @@
-import { Locator, Page, expect } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 
 export class OfferPage {
   readonly page: Page;
@@ -14,7 +14,7 @@ export class OfferPage {
     this.page = page;
     this.dynamicOption = page.getByLabel("Dynamisch");
     this.fixedOption = page.getByLabel("Vast");
-    this.nextButton = page.getByRole("button", { name: "Volgende" });
+    this.nextButton = page.locator('div').filter({ hasText: /^Volgende$/ }).getByRole('button');
     this.cardsOptions = page.locator(".sparky-cardOverlay");
     this.toYourOfferButton = page.locator('[data-label="Naar je aanbod"]');
     this.co2EmissionsToggle = page.locator('#hasUpsellGas');

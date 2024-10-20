@@ -23,7 +23,7 @@ test.describe("Sales Flow Tests", () => {
     await homePage.goTo();
   });
 
-  test("check user can complete sales flow successfully", async ({ page }) => {
+  test("check user can complete sales flow successfully", async () => {
     await test.step("check user can enter address data successfully", async () => {
       await homePage.postalCode.fill(testData.postalCode);
       await homePage.houseNumber.fill(testData.houseNumber);

@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "## Introduction This repository contains:",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test-ui": "npx playwright test sales-flow.spec.ts",
+    "test-api": "npx playwright test go-rest.spec.ts --project chromium"
+  },
   "keywords": [],
-  "author": "",
+  "author": "Mohamad Hasanien",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.48.1",
